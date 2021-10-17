@@ -37,7 +37,7 @@ class EmployeesAddForm extends Component {
                         placeholder="З/П в $?" />
     
                     <button
-                            onClick={(e) => onAddEmployers(e)}
+                            
                             type="submit"
                             className="btn btn-outline-light">Добавить</button>
                 </form>
