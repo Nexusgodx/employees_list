@@ -1,18 +1,24 @@
 import "./app-filter.css";
 
-const AppFilter = () => {
+const AppFilter = ({filterEmp}) => {
     return (
         <div className="btn-group">
-            <button type="button"
-                    className="btn btn-light">
+            <button data-filter='all'
+                    type="button"
+                    className="btn btn-light"
+                    onClick={(e) => filterEmp(e.currentTarget.getAttribute('data-filter'))}>
                     Все сотрудники
             </button>
-            <button type="button"
-                    className="btn btn-outline-light">
+            <button data-filter='rise'
+                    type="button"
+                    className="btn btn-outline-light"
+                    onClick={(e) => filterEmp(e.currentTarget.getAttribute('data-filter'))}>
                     На повышение
             </button>
-            <button type="button"
-                    className="btn btn-outline-light">
+            <button data-filter='more'
+                    type="button"
+                    className="btn btn-outline-light"
+                    onClick={(e) => filterEmp(e.currentTarget.getAttribute('data-filter'))}>
                     З/П больше 1000$
             </button>
         </div>

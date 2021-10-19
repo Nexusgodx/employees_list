@@ -18,6 +18,9 @@ class EmployeesAddForm extends Component {
 
     render() {
         const {name, salary} = this.state;
+
+
+        
         return (
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
@@ -37,7 +40,13 @@ class EmployeesAddForm extends Component {
                         placeholder="З/П в $?" />
     
                     <button
-                            
+                            onClick={(e) => {
+                                this.props.onAdd(e, this.state)
+                                this.setState(({
+                                    name: '',
+                                    salary: ''
+                                }))
+                            }}
                             type="submit"
                             className="btn btn-outline-light">Добавить</button>
                 </form>
