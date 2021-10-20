@@ -17,7 +17,8 @@ class App extends Component{
         {name: 'Ivan', salary: 900, rise: false,  increase: false, id: 2},
         {name: 'Alex', salary: 11000, rise: false,  increase: true, id: 3}
       ],
-      term: ''
+      term: '',
+      filter: 'all'
     };
     this.maxId = 4;
   }
@@ -70,35 +71,37 @@ class App extends Component{
     })
   }
 
-  filterEmp = (prop) => {
-    this.setState(({data}) => {
-      switch(prop) {
-        case 'all':
-          return data;
-        case 'rise':
-          const newArr = data.filter(item => item[prop]);
-          return {
-            data: newArr
-          };
-        case 'more':
-          const arr = data.filter(item => item.salary > 1000);
-          return {
-            data: arr
-          };
-        default:
-          break;
-      }
-    })
-  }
-
   onUpdateSeacrh = (term) => {
     this.setState({term});
   }
 
+  
+
+  filterEmp = (prop, data) => {
+      switch(prop) {
+        case 'all':
+          return data;
+        case 'rise':
+          const newArr = data.filter(item => item.rise);
+          return newArr;
+        case 'more':
+          const arr = data.filter(item => item.salary > 1000);
+          return arr;
+        default:
+          break;
+      }
+  }
+
+ onUpdateFilter = (filter) => {
+  this.setState(({filter}))
+  console.log(filter)
+ }
+
   render() {
     const employees = this.state.data.length;
     const increased = this.state.data.filter(item => item.increase).length;
-    const {data, term} = this.state;
+    const {term} = this.state;
+    const data = this.filterEmp(this.state.filter, this.state.data);
     const visibleData = this.searchEmp(data, term);
 
     return (
@@ -107,7 +110,7 @@ class App extends Component{
   
           <div className="search-panel">
               <SearchPanel onUpdateSeacrh={this.onUpdateSeacrh}/>
-              <AppFilter filterEmp={this.filterEmp}/>
+              <AppFilter onUpdateFilter={this.onUpdateFilter}/>
           </div>
           
           <EmployeesList 
