@@ -6,7 +6,12 @@ class AppFilter extends Component {
         super(props);
         this.state = {
             filter: 'all'
-        }
+        };
+        this.buttonsData = [
+            {name: 'all', label: 'Все сотрудники'},
+            {name: 'rise', label: 'На повышение'},
+            {name: 'more', label: 'З/П больше 1000$'}
+        ]
     }
 
     onUpdateFilter = async (e) => {
@@ -17,26 +22,25 @@ class AppFilter extends Component {
     }
 
     render() {
+
+        const buttons = this.buttonsData.map(({name, label}) => {
+        const active = this.state.filter === name;
+        const clazz = active ? 'btn-light' : 'btn-outline-light';
+            return (
+                <button 
+                    data-filter={name}
+                    key={name}
+                    type="button"
+                    className={`btn ${clazz}`}
+                    onClick={this.onUpdateFilter}>
+                    {label}
+                </button>
+            )
+        })
+
         return (
             <div className="btn-group">
-                <button data-filter='all'
-                        type="button"
-                        className={this.state.filter === 'all' ? 'btn btn-light' : 'btn btn-outline-light'}
-                        onClick={this.onUpdateFilter}>
-                        Все сотрудники
-                </button>
-                <button data-filter='rise'
-                        type="button"
-                        className={this.state.filter === 'rise' ? 'btn btn-light' : 'btn btn-outline-light'}
-                        onClick={this.onUpdateFilter}>
-                        На повышение
-                </button>
-                <button data-filter='more'
-                        type="button"
-                        className={this.state.filter === 'more' ? 'btn btn-light' : 'btn btn-outline-light'}
-                        onClick={this.onUpdateFilter}>
-                        З/П больше 1000$
-                </button>
+                {buttons}
             </div>
         )
     }

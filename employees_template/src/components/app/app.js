@@ -18,7 +18,7 @@ class App extends Component{
         {name: 'Alex', salary: 11000, rise: false,  increase: true, id: 3}
       ],
       term: '',
-      filter: 'all'
+      filter: ''
     };
     this.maxId = 4;
   }
@@ -79,16 +79,12 @@ class App extends Component{
 
   filterEmp = (prop, data) => {
       switch(prop) {
-        case 'all':
-          return data;
         case 'rise':
-          const newArr = data.filter(item => item.rise);
-          return newArr;
+          return data.filter(item => item.rise);
         case 'more':
-          const arr = data.filter(item => item.salary > 1000);
-          return arr;
+          return data.filter(item => item.salary > 1000);
         default:
-          break;
+         return data;
       }
   }
 
@@ -100,9 +96,8 @@ class App extends Component{
   render() {
     const employees = this.state.data.length;
     const increased = this.state.data.filter(item => item.increase).length;
-    const {term} = this.state;
-    const data = this.filterEmp(this.state.filter, this.state.data);
-    const visibleData = this.searchEmp(data, term);
+    const {term, data, filter} = this.state; 
+    const visibleData =  this.filterEmp(filter, this.searchEmp(data, term));
 
     return (
       <div className="app">
